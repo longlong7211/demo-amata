@@ -1,9 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './components.css';
 import Floor1 from './components/Floor1';
 import Floor2 from './components/Floor2';
+import Floor3 from './components/Floor3';
+import Floor4 from './components/Floor4';
+import Floor5 from './components/Floor5';
+
+export default function Home() {
+              padding: '25px 15px 15px 15px',
+              borderRadius: '15px',
+              border: '1px solid #e9ecef',
+              width: 'fit-content',
+              minWidth: areaPositions.area1.minWidth,
+              maxWidth: areaPositions.area1.maxWidth,
+              boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.3s ease',
+              transform: 'translateY(0)',
+              cursor: 'pointer',
+              zIndex: 1
+            }}
+              onClick={() => handleFloorTransition('floor1')}t Floor2 from './components/Floor2';
 import Floor3 from './components/Floor3';
 import Floor4 from './components/Floor4';
 import Floor5 from './components/Floor5';
@@ -15,21 +33,20 @@ export default function Home() {
   const [showFloor, setShowFloor] = useState(false);
 
   const handleFloorTransition = (floorTab: string) => {
-    setActiveTab(floorTab);
-    setShowFloor(true);
     setIsTransitioning(true);
-
-    // End transition after animation completes
+    
     setTimeout(() => {
+      setActiveTab(floorTab);
+      setShowFloor(true);
       setIsTransitioning(false);
     }, 300);
   };
 
   const handleBackToInfo = () => {
     setIsTransitioning(true);
-
+    setShowFloor(false);
+    
     setTimeout(() => {
-      setShowFloor(false);
       setActiveTab('info');
       setIsTransitioning(false);
     }, 300);
@@ -132,7 +149,7 @@ export default function Home() {
               cursor: 'pointer',
               zIndex: 1
             }}
-              onClick={() => handleFloorTransition('floor1')}
+              onClick={() => setActiveTab('floor1')}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
                 e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.2)';
@@ -187,7 +204,7 @@ export default function Home() {
               cursor: 'pointer',
               zIndex: 1
             }}
-              onClick={() => handleFloorTransition('floor2')}
+              onClick={() => setActiveTab('floor2')}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
                 e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.2)';
@@ -244,7 +261,7 @@ export default function Home() {
               cursor: 'pointer',
               zIndex: 1
             }}
-              onClick={() => handleFloorTransition('floor3')}
+              onClick={() => setActiveTab('floor3')}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
                 e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.2)';
@@ -309,7 +326,7 @@ export default function Home() {
               cursor: 'pointer',
               zIndex: 1
             }}
-              onClick={() => handleFloorTransition('floor4')}
+              onClick={() => setActiveTab('floor4')}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
                 e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.2)';
@@ -353,15 +370,15 @@ export default function Home() {
           </div>
         );
       case 'floor1':
-        return <Floor1 onBack={handleBackToInfo} />;
+        return <Floor1 onBack={() => setActiveTab('info')} />;
       case 'floor2':
-        return <Floor2 onBack={handleBackToInfo} />;
+        return <Floor2 onBack={() => setActiveTab('info')} />;
       case 'floor3':
-        return <Floor3 onBack={handleBackToInfo} />;
+        return <Floor3 onBack={() => setActiveTab('info')} />;
       case 'floor4':
-        return <Floor4 onBack={handleBackToInfo} />;
+        return <Floor4 onBack={() => setActiveTab('info')} />;
       case 'floor5':
-        return <Floor5 onBack={handleBackToInfo} />;
+        return <Floor5 onBack={() => setActiveTab('info')} />;
       default:
         return null;
     }
@@ -394,53 +411,36 @@ export default function Home() {
 
       {showDetails && (
         <div className="details-panel">
-          {/* Detail View - Always visible as base layer */}
-          <div className="details-container" style={{
-            width: '100%',
-            height: '100%'
-          }}>
-            {/* Cột trái - Nội dung */}
-            <div className="content-column">
-              <div className="tab-content">
-                {activeTab === 'info' ? renderTabContent() : null}
+          {activeTab === 'info' ? (
+            <div className="details-container">
+              {/* Cột trái - Nội dung */}
+              <div className="content-column">
+                <div className="tab-content">
+                  <button
+                    className="close-button-content"
+                    onClick={() => setShowDetails(false)}
+                  >
+                    Đóng
+                  </button>
+                  {renderTabContent()}
+                </div>
+              </div>
+
+              {/* Cột phải - Video */}
+              <div className="video-column">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                >
+                  <source src="/amata-video.mp4" type="video/mp4" />
+                  Trình duyệt của bạn không hỗ trợ video.
+                </video>
               </div>
             </div>
-
-            {/* Cột phải - Video */}
-            <div className="video-column" style={{
-              position: 'relative'
-            }}>
-              <button
-                className="close-button-content"
-                onClick={() => setShowDetails(false)}
-                style={{ position: 'absolute', top: '20px', right: '20px', zIndex: 1000 }}
-              >
-                Đóng
-              </button>
-              <video
-                autoPlay
-                muted
-                loop
-              >
-                <source src="/amata-video.mp4" type="video/mp4" />
-                Trình duyệt của bạn không hỗ trợ video.
-              </video>
-            </div>
-          </div>
-
-          {/* Floor View - Overlay on top when showing floor */}
-          {showFloor && (
-            <div style={{
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              opacity: isTransitioning ? 0 : 1,
-              transition: 'opacity 0.3s ease',
-              zIndex: 1001,
-              backgroundColor: 'white'
-            }}>
+          ) : (
+            // Floor views take full screen
+            <div style={{ width: '100%', height: '100%', position: 'relative' }}>
               <button
                 className="close-button-content"
                 onClick={() => setShowDetails(false)}
@@ -453,7 +453,6 @@ export default function Home() {
           )}
         </div>
       )}
-
     </div>
   );
 }
