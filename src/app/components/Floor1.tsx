@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 
 interface Floor1Props {
@@ -52,6 +51,48 @@ export default function Floor1({ onBack }: Floor1Props) {
             icon: '',
             demoImage: 'https://csdl.vietnamtourism.gov.vn/uploads/images/01_3/CSDLNHAHANG2020/DONGNAI/ThienQue333/NhahangThienque3.jpg',
             fullDescription: 'Nhà hàng Nhật Bản Thiên Quế là điểm đến lý tưởng cho những ai yêu thích ẩm thực Nhật Bản tinh tế. Với không gian trang nhã, phong cách tối giản đặc trưng của văn hóa Nhật Bản, nhà hàng mang đến trải nghiệm ẩm thực đầy tinh tế và sang trọng. Được thành lập từ năm 2010, chúng tôi tự hào là một trong những nhà hàng Nhật Bản uy tín nhất tại khu vực với đội ngũ đầu bếp chuyên nghiệp và nguyên liệu cao cấp được nhập khẩu trực tiếp từ Nhật Bản.'
+        },
+        {
+            id: 'bank',
+            x: 36.6, y: 19.8, width: 19, height: 26,
+            title: 'Ngân Hàng Vietcombank',
+            description: 'Ngân Hàng Vietcombank',
+            details: [
+                '• Dịch vụ ngân hàng đa dạng: tài khoản, thẻ, vay vốn, đầu tư',
+                '• Mạng lưới chi nhánh và ATM rộng khắp toàn quốc',
+                '• Ứng dụng ngân hàng trực tuyến tiện lợi và an toàn',
+            ],
+            icon: '',
+            demoImage: 'https://www.vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/Images/Media-With-Content/Image.png?h=500&iar=0&w=1312&ts=20230709003449&hash=DF41D3F75386F1643CA629C1A19AF332',
+            fullDescription: 'Ngân Hàng Vietcombank là một trong những ngân hàng hàng đầu tại Việt Nam, cung cấp đa dạng các dịch vụ tài chính chất lượng cao. Với mạng lưới chi nhánh và ATM rộng khắp, cùng với ứng dụng ngân hàng trực tuyến tiện lợi, chúng tôi cam kết mang đến sự hài lòng và an toàn cho khách hàng.'
+        },
+        {
+            id: 'Amazon cafe',
+            x: 32.5, y: 28.8, width: 4, height: 9,
+            title: 'Amazon Cafe',
+            description: 'Amazon Cafe',
+            details: [
+                '• Không gian ấm cúng, thân thiện',
+                '• Thực đơn phong phú với các món ăn đặc trưng',
+                '• Dịch vụ nhanh chóng, tận tình',
+                '• WiFi miễn phí cho khách hàng',
+                '• Khuyến mãi hấp dẫn vào cuối tuần',
+            ],
+            icon: '',
+            demoImage: 'https://cdn.vietnambiz.vn/171464876016439296/2020/12/17/cafe-amazon-1-1608178353831187952611.jpg',
+            fullDescription: 'Amazon Cafe là một trong những quán cafe nổi tiếng tại Việt Nam, cung cấp đa dạng các loại đồ uống và món ăn nhẹ. Với không gian ấm cúng, thân thiện, chúng tôi cam kết mang đến sự hài lòng và thoải mái cho khách hàng.'
+        },
+        {
+            id: 'Minamoto',
+            x: 22.8, y: 28.8, width: 2, height: 9,
+            title: 'Nhà Hàng Nhật Bản Minamoto',
+            description: 'Nhà Hàng Nhật Bản Minamoto',
+            details: [
+                '• Thực đơn đa dạng với hơn 150 món ăn truyền thống Nhật Bản',
+            ],
+            icon: '',
+            demoImage: 'https://sonbetongconpa.vn/wp-content/uploads/2021/08/khong-gian-nha-hang-su-dung-son-gia-be-tong-1202x800.jpg',
+            fullDescription: 'Nhà Hàng Nhật Bản Minamoto là một trong những nhà hàng Nhật Bản nổi tiếng tại Việt Nam, cung cấp đa dạng các món ăn truyền thống Nhật Bản. Với không gian ấm cúng, thân thiện, chúng tôi cam kết mang đến sự hài lòng và thoải mái cho khách hàng.'
         }
     ];
 
@@ -195,23 +236,26 @@ export default function Floor1({ onBack }: Floor1Props) {
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
             >
-                <Image
+                <img
                     src="/floor-img/f1.png"
                     alt="Sơ đồ tầng 1"
-                    fill
                     style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
                         objectFit: 'contain',
                         objectPosition: 'center'
                     }}
-                    priority
                     onLoad={(e) => {
-                        const img = e.target as HTMLImageElement;
+                        const img = e.currentTarget as HTMLImageElement;
                         setImageDimensions({
                             width: img.naturalWidth,
                             height: img.naturalHeight
                         });
                         setImageLoaded(true);
                     }}
+                    draggable={false}
                 />
 
                 {/* Overlay các khu vực hotspot - chỉ hiển thị khi ảnh đã load */}
@@ -428,13 +472,17 @@ export default function Floor1({ onBack }: Floor1Props) {
                                 height: '200px',
                                 backgroundColor: '#f5f5f5'
                             }}>
-                                <Image
+                                <img
                                     src={hoveredArea.demoImage}
                                     alt={`Demo ${hoveredArea.title}`}
-                                    fill
                                     style={{
+                                        position: 'absolute',
+                                        inset: 0,
+                                        width: '100%',
+                                        height: '100%',
                                         objectFit: 'cover'
                                     }}
+                                    draggable={false}
                                 />
                                 {/* Overlay gradient */}
                                 <div style={{

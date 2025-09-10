@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 
 interface Floor3Props {
@@ -195,23 +194,26 @@ export default function Floor3({ onBack }: Floor3Props) {
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
             >
-                <Image
+                <img
                     src="/floor-img/f3.png"
                     alt="Sơ đồ tầng 3"
-                    fill
                     style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
                         objectFit: 'contain',
                         objectPosition: 'center'
                     }}
-                    priority
                     onLoad={(e) => {
-                        const img = e.target as HTMLImageElement;
+                        const img = e.currentTarget as HTMLImageElement;
                         setImageDimensions({
                             width: img.naturalWidth,
                             height: img.naturalHeight
                         });
                         setImageLoaded(true);
                     }}
+                    draggable={false}
                 />
 
                 {/* Overlay các khu vực hotspot - chỉ hiển thị khi ảnh đã load */}
@@ -428,13 +430,17 @@ export default function Floor3({ onBack }: Floor3Props) {
                                 height: '200px',
                                 backgroundColor: '#f5f5f5'
                             }}>
-                                <Image
+                                <img
                                     src={hoveredArea.demoImage}
                                     alt={`Demo ${hoveredArea.title}`}
-                                    fill
                                     style={{
+                                        position: 'absolute',
+                                        inset: 0,
+                                        width: '100%',
+                                        height: '100%',
                                         objectFit: 'cover'
                                     }}
+                                    draggable={false}
                                 />
                                 {/* Overlay gradient */}
                                 <div style={{

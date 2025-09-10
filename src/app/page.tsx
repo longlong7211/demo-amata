@@ -13,6 +13,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('info');
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showFloor, setShowFloor] = useState(false);
+  const [showSolar, setShowSolar] = useState(false);
 
   const handleFloorTransition = (floorTab: string) => {
     setActiveTab(floorTab);
@@ -369,6 +370,87 @@ export default function Home() {
 
   return (
     <div style={{ width: '100vw', height: '100vh', margin: 0, padding: 0 }}>
+      <button
+        onClick={() => setShowSolar(true)}
+        title="Solar Dasboard"
+        style={{
+          position: 'fixed',
+          bottom: '16px',
+          left: '16px',
+          zIndex: 20000,
+          background: '#0d6efd',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '8px',
+          padding: '10px 14px',
+          fontSize: '14px',
+          fontWeight: 600,
+          cursor: 'pointer',
+          boxShadow: '0 4px 12px rgba(13,110,253,0.35)'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = '0 6px 16px rgba(13,110,253,0.5)';
+          e.currentTarget.style.transform = 'translateY(-1px)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = '0 4px 12px rgba(13,110,253,0.35)';
+          e.currentTarget.style.transform = 'translateY(0)';
+        }}
+      >
+        Solar Dasboard
+      </button>
+      {showSolar && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: 30000,
+            display: 'flex',
+            alignItems: 'stretch',
+            justifyContent: 'center',
+          }}
+          onClick={(e) => {
+            // only close when clicking the dimmed backdrop
+            if (e.target === e.currentTarget) setShowSolar(false);
+          }}
+        >
+          <div
+            style={{
+              background: '#fff',
+              width: '100vw',
+              height: '100vh',
+              overflowY: 'auto',
+              position: 'relative',
+            }}
+          >
+            <button
+              onClick={() => setShowSolar(false)}
+              aria-label="Close"
+              style={{
+                position: 'sticky',
+                top: 0,
+                marginLeft: 'auto',
+                display: 'block',
+                background: 'transparent',
+                border: 'none',
+                color: '#333',
+                padding: '12px 16px',
+                cursor: 'pointer',
+                fontSize: '16px',
+                fontWeight: 600,
+              }}
+            >
+              ×
+            </button>
+            <img
+              src="/solar.png"
+              alt="Solar"
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+      )}
       <div className="details-panel">
         {/* Detail View - Always visible as base layer */}
         <div className="details-container" style={{
