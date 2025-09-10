@@ -34,7 +34,7 @@ export default function Floor1({ onBack }: Floor1Props) {
     const hotspotAreas: HotspotArea[] = [
         {
             id: 'lobby',
-            x: 5, y: 63, width: 11, height: 12,
+            x: 15, y: 50, width: 11.6, height: 18,
             title: 'Nhà Hàng Nhật Bản Thiên Quế',
             description: 'Nhà Hàng Nhật Bản Thiên Quế',
             details: [
@@ -617,49 +617,13 @@ export default function Floor1({ onBack }: Floor1Props) {
                 borderRadius: '8px',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
             }}>
-                <h2 style={{ margin: '0 0 5px 0', color: '#333' }}>Tầng 1 - Tầng Trệt</h2>
+                <h2 style={{ margin: '0 0 5px 0', color: '#333' }}>Tầng Trệt</h2>
                 <p style={{ margin: '0', color: '#666', fontSize: '14px' }}>
                     {hoveredArea
                         ? `Đang xem: ${hoveredArea.title}`
                         : 'Di chuyển chuột để xem thông tin các khu vực'
                     }
                 </p>
-            </div>
-
-            {/* Danh sách các khu vực */}
-            <div style={{
-                position: 'absolute',
-                top: '20px',
-                right: '20px',
-                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                padding: '15px',
-                borderRadius: '8px',
-                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-                maxWidth: '250px',
-                fontSize: '13px',
-                zIndex: 10
-            }}>
-                <h3 style={{ margin: '0 0 10px 0', color: '#333', fontSize: '14px' }}>
-                    Các khu vực tại tầng 1:
-                </h3>
-                {hotspotAreas.map((area) => (
-                    <div
-                        key={area.id}
-                        style={{
-                            marginBottom: '8px',
-                            padding: '8px',
-                            backgroundColor: hoveredArea?.id === area.id ? '#e3f2fd' : '#f8f9fa',
-                            borderRadius: '4px',
-                            border: hoveredArea?.id === area.id ? '1px solid #2196f3' : '1px solid #dee2e6',
-                            transition: 'all 0.2s ease'
-                        }}
-                    >
-                        <strong>{area.icon} {area.title.replace(/^.+\s/, '')}</strong>
-                        <div style={{ fontSize: '11px', color: '#666', marginTop: '2px' }}>
-                            {area.description}
-                        </div>
-                    </div>
-                ))}
             </div>
         </div>
     );

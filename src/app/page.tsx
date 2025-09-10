@@ -9,7 +9,7 @@ import Floor4 from './components/Floor4';
 import Floor5 from './components/Floor5';
 
 export default function Home() {
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(true);
   const [activeTab, setActiveTab] = useState('info');
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showFloor, setShowFloor] = useState(false);
@@ -132,7 +132,7 @@ export default function Home() {
               cursor: 'pointer',
               zIndex: 1
             }}
-              onClick={() => handleFloorTransition('floor1')}
+              onClick={() => handleFloorTransition('floor2')}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
                 e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.2)';
@@ -187,7 +187,7 @@ export default function Home() {
               cursor: 'pointer',
               zIndex: 1
             }}
-              onClick={() => handleFloorTransition('floor2')}
+              onClick={() => handleFloorTransition('floor3')}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
                 e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.2)';
@@ -244,7 +244,7 @@ export default function Home() {
               cursor: 'pointer',
               zIndex: 1
             }}
-              onClick={() => handleFloorTransition('floor3')}
+              onClick={() => handleFloorTransition('floor4')}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
                 e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.2)';
@@ -309,7 +309,7 @@ export default function Home() {
               cursor: 'pointer',
               zIndex: 1
             }}
-              onClick={() => handleFloorTransition('floor4')}
+              onClick={() => handleFloorTransition('floor5')}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
                 e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.2)';
@@ -369,91 +369,51 @@ export default function Home() {
 
   return (
     <div style={{ width: '100vw', height: '100vh', margin: 0, padding: 0 }}>
-      <button
-        className="detail-button"
-        onClick={() => setShowDetails(true)}
-      >
-        Xem chi tiết
-      </button>
-
-      <div className="iframe-container">
-        <iframe
-          src="https://amatavn.com/vi/"
-          width="100%"
-          height="100%"
-          style={{
-            border: 'none',
-            margin: 0,
-            padding: 0,
-            display: 'block'
-          }}
-          allowFullScreen
-          sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-        />
-      </div>
-
-      {showDetails && (
-        <div className="details-panel">
-          {/* Detail View - Always visible as base layer */}
-          <div className="details-container" style={{
-            width: '100%',
-            height: '100%'
-          }}>
-            {/* Cột trái - Nội dung */}
-            <div className="content-column">
-              <div className="tab-content">
-                {activeTab === 'info' ? renderTabContent() : null}
-              </div>
-            </div>
-
-            {/* Cột phải - Video */}
-            <div className="video-column" style={{
-              position: 'relative'
-            }}>
-              <button
-                className="close-button-content"
-                onClick={() => setShowDetails(false)}
-                style={{ position: 'absolute', top: '20px', right: '20px', zIndex: 1000 }}
-              >
-                Đóng
-              </button>
-              <video
-                autoPlay
-                muted
-                loop
-              >
-                <source src="/amata-video.mp4" type="video/mp4" />
-                Trình duyệt của bạn không hỗ trợ video.
-              </video>
+      <div className="details-panel">
+        {/* Detail View - Always visible as base layer */}
+        <div className="details-container" style={{
+          width: '100%',
+          height: '100%'
+        }}>
+          {/* Cột trái - Nội dung */}
+          <div className="content-column">
+            <div className="tab-content">
+              {activeTab === 'info' ? renderTabContent() : null}
             </div>
           </div>
 
-          {/* Floor View - Overlay on top when showing floor */}
-          {showFloor && (
-            <div style={{
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              opacity: isTransitioning ? 0 : 1,
-              transition: 'opacity 0.3s ease',
-              zIndex: 1001,
-              backgroundColor: 'white'
-            }}>
-              <button
-                className="close-button-content"
-                onClick={() => setShowDetails(false)}
-                style={{ position: 'absolute', top: '20px', right: '20px', zIndex: 1000 }}
-              >
-                Đóng
-              </button>
-              {renderTabContent()}
-            </div>
-          )}
+          {/* Cột phải - Video */}
+          <div className="video-column" style={{
+            position: 'relative'
+          }}>
+            <video
+              autoPlay
+              muted
+              loop
+            >
+              <source src="/amata-video.mp4" type="video/mp4" />
+              Trình duyệt của bạn không hỗ trợ video.
+            </video>
+          </div>
         </div>
-      )}
 
+        {/* Floor View - Overlay on top when showing floor */}
+        {showFloor && (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            opacity: isTransitioning ? 0 : 1,
+            transition: 'opacity 0.3s ease',
+            zIndex: 1001,
+            backgroundColor: 'white'
+          }}>
+            {renderTabContent()}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
